@@ -68,10 +68,9 @@ int main()
                             cout << "Sliskom dlinnaya stroka!" << endl;
                             continue;
                         }
-                        if (dataSize < size) {
-                           cout << "Preduprezhdenie - vvedeno menshe simvolow, chem mozno" << endl;
-                           continue;
-                        }
+                        //if (dataSize < size) {
+                        //    cout << "Preduprezhdenie - vvedeno menshe simvolow, chem mozno" << endl;
+                        //}
 
                         file->fileSize = size;
                         fileSystem.addTail(file);
@@ -232,17 +231,41 @@ int main()
                     cout << "Smeshenie (nachinaya s 0) - ";
                     cin >> offset;
 
-                    if (offset >= 0 && offset < f->fileSize && count <= f->fileSize) {
+                    if (offset >= 0 && offset < f->fileSize && count <= fileSystem.getFreeSize()) {
                         int offsetCount = count + offset;
-                        if (offsetCount > f->fileSize) {
-                            offsetCount = f->fileSize;
+   
+                        cout << "Vvedite " << count << " simvolov (po odnomu, cherez enter):" << endl;
+                        
+                        if (offsetCount <= f->fileSize) {
+                            for (int i = offset; i < offsetCount; i++) {
+                                cin >> f->data[i];
+                            }
                         }
-                        cout << "Vvedite " << offsetCount << " simvolov (po odnomu, cherez enter):" << endl;
-                        for (int i = offset; i < offsetCount; i++) {
-                            char s;
-                            cin >> s;
-                            f->data[i] = s;
+                        else {
+
+                            if ((offsetCount - f->fileSize) > fileSystem.getFreeSize()) {
+                                cout << "Nedosatochno mesta na diske!" << endl;
+                                continue;
+                            }
+
+                            unsigned char* oldData = new unsigned char[f->fileSize]; // старые данные файла
+                            for (int i = 0; i < f->fileSize; i++) {
+                                oldData[i] = f->data[i];
+                            }
+
+                            f->fileSize = offsetCount;
+                            f->data = new unsigned char[offsetCount];
+                            for (int i = 0; i < offsetCount; i++) {
+                                if (i >= offset) {
+                                    cin >> f->data[i];
+                                }
+                                else {
+                                    f->data[i] = oldData[i];
+                                }
+                                
+                            }
                         }
+                        
                     }
                     else {
                         cout << "Nevernie dannye!" << endl;

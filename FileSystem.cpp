@@ -267,7 +267,11 @@ void FileSystem::filesList()
             temp = temp->next;
         }
         cout << "    " << temp->file->fileName << endl;
-        cout << "        " << temp->file->data << endl;
+        cout << "        ";
+        for (int i = 0; i < temp->file->fileSize; i++) {
+            cout << temp->file->data[i];
+        }
+        cout << endl;
         cout << endl;
     }
     else {
