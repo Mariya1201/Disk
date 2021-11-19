@@ -27,14 +27,14 @@ int main()
         FileSystem fileSystem;
         int a = -1; // Команда, которую надо выполнить
 
-        while (a != 0) { // Будем требовать ввод команды пока не встретим команду выхода - 0
-            menu(); // Выведем на экран подсказку
+        while (a != 0) { 
+            menu(); 
             cout << "Your choose: ";
             cin >> a;
             cout << endl;
 
             // Нужно для того, чтобы корректно работал getline(cin, fileName) :
-            cin.ignore(32767, '\n'); // Игнорируем символы перевода строки "\n" во входящем потоке длиной 32767 символов
+            cin.ignore(32767, '\n'); // Игнорируем символы перевода строки "\n" 
 
             if (a == 0) break;
             while (a != 1 && a != 2 && a != 3 && a != 4 && a != 5 && a != 6 && a != 7 && a != 8) {
@@ -183,12 +183,6 @@ int main()
                         }
                         cout << "Dannye faila " << f->fileName << ":" << endl;
 
-                        //int i = offset;
-                        //while (f->data[i] != '\0' && i < offsetCount) {
-                        //    cout << f->data[i];
-                        //    i++;
-                        //}
-
                         for (int i = offset; i < offsetCount; i++) {
                             if (f->data[i] == '\0') break;
                             cout << f->data[i];
@@ -200,14 +194,7 @@ int main()
                     }
 
 
-                    // cout << endl << "==============" << endl;
-                    // cout << endl << f->fileSize << endl;
-                    // cout << endl << "==============" << endl;
-
-                    // cout << "Dannye faila " << f->fileName << ":" << endl;
-                    // for (int i = 0; i < f->fileSize; i++) {
-                    //     cout << f->data[i];
-                    // }
+             
                 }
                 else {
                     cout << "Fayl ne nayden!" << endl;
