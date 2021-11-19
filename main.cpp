@@ -58,19 +58,19 @@ int main()
                         file->data = new unsigned char[size];
                         cout << "Vvedite dannye fayla:" << endl;
                         cin >> file->data;
-
+                       
                         int dataSize = 0; // длина введенной строки
                         while (file->data[dataSize] != '\0') {
                             dataSize++;
                         }
-
+                        
                         if (dataSize > size) {
                             cout << "Sliskom dlinnaya stroka!" << endl;
                             continue;
                         }
-                        //if (dataSize < size) {
-                        //    cout << "Preduprezhdenie - vvedeno menshe simvolow, chem mozno" << endl;
-                        //}
+                        if (dataSize < size) {
+                           cout << "Preduprezhdenie - vvedeno menshe simvolow, chem mozno" << endl;
+                        }
 
                         file->fileSize = size;
                         fileSystem.addTail(file);
@@ -243,7 +243,7 @@ int main()
                             f->fileSize = offsetCount;
                             f->data = new unsigned char[offsetCount];
                             for (int i = 0; i < offsetCount; i++) {
-                                if (i >= offset) {
+                                if (i > offset) {
                                     cin >> f->data[i];
                                 }
                                 else {

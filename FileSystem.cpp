@@ -36,7 +36,7 @@ void FileSystem::addHead(File* file)
     temp->file = file; // Заполняем данные
     temp->next = head; // Следующий - бывшая голова
 
-    if (head != NULL) { // Если элементы есть?
+    if (head != NULL) { // Если элементы есть
         head->prev = temp;
     }
 
