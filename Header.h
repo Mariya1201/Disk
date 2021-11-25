@@ -12,7 +12,7 @@ struct File
 {
     string fileName; // Название файла
     int fileSize; // Размер файла
-    unsigned char* data; // Данные
+    char* data; // Данные
 };
 
 
@@ -30,9 +30,9 @@ class FileSystem
     int size; // Количество свободной памяти в фаловой системе
 
 public:
-    FileSystem(); // Конструктор
-    FileSystem(const FileSystem&); // Конструктор копирования
-    ~FileSystem(); // Деструктор
+    FileSystem();
+    FileSystem(const FileSystem&); 
+    ~FileSystem();
 
     void addTail(File* file); // Добавление в конец списка
     void addHead(File* file); // Добавление в начало списка

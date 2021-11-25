@@ -25,7 +25,7 @@ FileSystem::FileSystem(const FileSystem& L)
 
 FileSystem::~FileSystem() //Деструктор
 {
-    delAll(); // Удаляем все элементы
+    delAll(); 
 }
 
 void FileSystem::addHead(File* file)
@@ -33,10 +33,10 @@ void FileSystem::addHead(File* file)
     Node* temp = new Node; // Создаем новый элемент
 
     temp->prev = NULL; // Предыдущего нет
-    temp->file = file; // Заполняем данные
+    temp->file = file; 
     temp->next = head; // Следующий - бывшая голова
 
-    if (head != NULL) { // Если элементы есть
+    if (head != NULL) { 
         head->prev = temp;
     }
 
@@ -59,7 +59,7 @@ void FileSystem::addTail(File* file)
     temp->file = file; // Заполняем данные
     temp->prev = tail; // Предыдущий - бывший хвост
 
-    if (tail != NULL) { // Если элементы есть?
+    if (tail != NULL) { 
         tail->next = temp;
     }
 
@@ -77,8 +77,7 @@ void FileSystem::addTail(File* file)
 
 void FileSystem::add(int pos, File* file)
 {
-    if (pos < 1 || pos > nodesCount + 1) { // Позиция от 1 до nodesCount?
-        // Неверная позиция
+    if (pos < 1 || pos > nodesCount + 1) { 
         cout << "Incorrect position !!!\n";
         return;
     }
@@ -124,7 +123,7 @@ void FileSystem::del(int pos)
 {
     Node* del = head;
 
-    int i = 1; // Счетчик
+    int i = 1;
     while (i < pos) { // Доходим до элемента, который удаляется
         del = del->next;
         i++;
@@ -176,8 +175,7 @@ int FileSystem::getFreeSize()
 
 Node* FileSystem::get(int pos)
 {
-    if (pos < 1 || pos > nodesCount) { // Позиция от 1 до nodesCount?
-        // Неверная позиция
+    if (pos < 1 || pos > nodesCount) { 
         cout << "Incorrect position !!!\n";
         return 0;
     }
@@ -242,7 +240,7 @@ File* FileSystem::copy(string fileName)
         File* copyFile = new File;
         copyFile->fileName = string("copy_") + f->fileName;
         copyFile->fileSize = f->fileSize;
-        copyFile->data = new unsigned char[f->fileSize];
+        copyFile->data = new char[f->fileSize];
 
         for (int i = 0; i < f->fileSize; i++) {
             copyFile->data[i] = f->data[i];
@@ -256,8 +254,7 @@ File* FileSystem::copy(string fileName)
 
 void FileSystem::filesList()
 {
-    // Если в списке присутствуют элементы, то пробегаемся по нему
-    // и печатаем элементы, начиная с первого
+    
     if (nodesCount != 0) {
         Node* temp = head;
         cout << "Files:" << endl;

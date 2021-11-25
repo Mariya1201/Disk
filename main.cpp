@@ -27,15 +27,16 @@ int main()
         FileSystem fileSystem;
         int a = -1; // Команда, которую надо выполнить
 
-        while (a != 0) { 
-            menu(); 
+        while (a != 0) { // Будем требовать ввод команды пока не встретим команду выхода - 0
+            menu();
             cout << "Your choose: ";
             cin >> a;
             cout << endl;
 
             // Нужно для того, чтобы корректно работал getline(cin, fileName) :
+            // cin.clear();
             cin.ignore(32767, '\n'); // Игнорируем символы перевода строки "\n" 
-
+                
             if (a == 0) break;
             while (a != 1 && a != 2 && a != 3 && a != 4 && a != 5 && a != 6 && a != 7 && a != 8) {
                 cout << "Incorrect! Your choose: ";
@@ -45,32 +46,41 @@ int main()
             if (a == 1) { // Создать файл
                 File* file = new File;
                 int size;
-                unsigned char* data;
+                char* data;
                 cout << "Vvedite nazvanie fayla:" << endl;
                 getline(cin, file->fileName); // Получение названия файла
-
 
                 if (fileSystem.checkFile(file->fileName) == 0) {
                     cout << "Vvedite razmer fayla v bitah (kolichestvo simvolov):" << endl;
                     cin >> size;
+                    cin.ignore();
 
                     if (size <= fileSystem.getFreeSize()) {
-                        file->data = new unsigned char[size];
+                        file->data = new char[size];
                         cout << "Vvedite dannye fayla:" << endl;
-                        cin >> file->data;
                        
+                        
+                        //for (int i = 0; i < size; i++) {
+                        //    cin >> file->data[i];
+                        //}
+                        //cin >> file->data;
+                        // getline(cin, file->data);
+                        cin.getline(file->data, 10000);
+
                         int dataSize = 0; // длина введенной строки
                         while (file->data[dataSize] != '\0') {
                             dataSize++;
                         }
-                        
+
                         if (dataSize > size) {
                             cout << "Sliskom dlinnaya stroka!" << endl;
                             continue;
                         }
                         if (dataSize < size) {
                            cout << "Preduprezhdenie - vvedeno menshe simvolow, chem mozno" << endl;
+                           continue;
                         }
+
 
                         file->fileSize = size;
                         fileSystem.addTail(file);
@@ -90,7 +100,7 @@ int main()
             if (a == 2) { // Удалить файл
                 string fileName;
                 cout << "Vvedite nazvanie fayla:" << endl;
-                getline(cin, fileName); // Получение названия файла
+                getline(cin, fileName); 
 
                 int filePos = fileSystem.checkFile(fileName);
                 if (filePos != 0) {
@@ -106,8 +116,7 @@ int main()
             if (a == 3) { // Копировать файл
                 string fileName;
                 cout << "Vvedite nazvanie fayla:" << endl;
-                getline(cin, fileName); // Получение названия файла
-
+                getline(cin, fileName); 
                 int filePos = fileSystem.checkFile(fileName);
                 if (filePos != 0) {
                     File* copyFile = fileSystem.copy(fileName);
@@ -123,7 +132,7 @@ int main()
                 string fileName;
                 string newFileName;
                 cout << "Vvedite nazvanie fayla:" << endl;
-                getline(cin, fileName); // Получение названия файла
+                getline(cin, fileName); 
 
                 int filePos = fileSystem.checkFile(fileName);
                 if (filePos != 0) {
@@ -142,7 +151,7 @@ int main()
             if (a == 5) { // Получить длину файла
                 string fileName;
                 cout << "Vvedite nazvanie fayla:" << endl;
-                getline(cin, fileName); // Получение названия файла
+                getline(cin, fileName); 
 
                 int filePos = fileSystem.checkFile(fileName);
                 if (filePos != 0) {
@@ -159,10 +168,10 @@ int main()
                 fileSystem.filesList();
             }
 
-            if (a == 7) { // Прочитать файл
+            if (a == 7) { 
                 string fileName;
                 cout << "Vvedite nazvanie fayla:" << endl;
-                getline(cin, fileName); // Получение названия файла
+                getline(cin, fileName); 
 
                 int filePos = fileSystem.checkFile(fileName);
                 if (filePos != 0) {
@@ -183,6 +192,8 @@ int main()
                         }
                         cout << "Dannye faila " << f->fileName << ":" << endl;
 
+                  
+
                         for (int i = offset; i < offsetCount; i++) {
                             if (f->data[i] == '\0') break;
                             cout << f->data[i];
@@ -194,7 +205,6 @@ int main()
                     }
 
 
-             
                 }
                 else {
                     cout << "Fayl ne nayden!" << endl;
@@ -235,15 +245,15 @@ int main()
                                 continue;
                             }
 
-                            unsigned char* oldData = new unsigned char[f->fileSize]; // старые данные файла
+                            char* oldData = new char[f->fileSize]; // старые данные файла
                             for (int i = 0; i < f->fileSize; i++) {
                                 oldData[i] = f->data[i];
                             }
 
                             f->fileSize = offsetCount;
-                            f->data = new unsigned char[offsetCount];
+                            f->data = new char[offsetCount];
                             for (int i = 0; i < offsetCount; i++) {
-                                if (i > offset) {
+                                if (i >= offset) {
                                     cin >> f->data[i];
                                 }
                                 else {
@@ -264,7 +274,6 @@ int main()
                     continue;
                 }
             }
-
 
         }
     } else {

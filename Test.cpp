@@ -9,8 +9,8 @@ int autotest1() {
 
     file->fileName = fileName;
     file->fileSize = 10;
-    file->data = new unsigned char[10] ;
-    unsigned char a[10] = "qwer";
+    file->data = new char[10] ;
+    char a[10] = "qwer";
     file->data = a;
 
     fileSystem.addTail(file);
@@ -40,14 +40,14 @@ int autotest2() {
 
     file1->fileName = fileName1;
     file1->fileSize = 10;
-    file1->data = new unsigned char[10];
-    unsigned char a1[10] = "qwer";
+    file1->data = new char[10];
+    char a1[10] = "qwer";
     file1->data = a1;
 
     file2->fileName = fileName2;
     file2->fileSize = 10;
-    file2->data = new unsigned char[10];
-    unsigned char a2[10] = "trewq";
+    file2->data = new char[10];
+    char a2[10] = "trewq";
     file2->data = a2;
 
     fileSystem.addTail(file1);
@@ -88,14 +88,14 @@ int autotest3() {
 
     file1->fileName = fileName1;
     file1->fileSize = 10;
-    file1->data = new unsigned char[10];
-    unsigned char a1[10] = "qwer";
+    file1->data = new char[10];
+    char a1[10] = "qwer";
     file1->data = a1;
 
     file2->fileName = fileName2;
     file2->fileSize = 10;
-    file2->data = new unsigned char[10];
-    unsigned char a2[10] = "trewq";
+    file2->data = new char[10];
+    char a2[10] = "trewq";
     file2->data = a2;
 
     fileSystem.addTail(file1);
