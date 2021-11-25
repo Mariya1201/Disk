@@ -143,8 +143,8 @@ int main()
                     cout << "Fayl uspeshno pereimenovan!" << endl;
                 }
                 else {
-                    cout << "Fayl ne nayden!" << endl;
                     continue;
+                    cout << "Fayl ne nayden!" << endl;
                 }
             }
 
@@ -212,6 +212,7 @@ int main()
                 }
             }
 
+            
             if (a == 8) { // Записать в файл
                 string fileName;
                 cout << "Vvedite nazvanie fayla:" << endl;
@@ -228,14 +229,37 @@ int main()
                     cout << "Smeshenie (nachinaya s 0) - ";
                     cin >> offset;
 
-                    if (offset >= 0 && offset < f->fileSize && count <= fileSystem.getFreeSize()) {
+                    if (offset >= 0 && offset < (f->fileSize + 1) && count <= fileSystem.getFreeSize()) {
                         int offsetCount = count + offset;
-   
+
                         cout << "Vvedite " << count << " simvolov (po odnomu, cherez enter):" << endl;
-                        
+
+                        char* data;
+                        data = new char[offsetCount + 1];
+                        cin.ignore();
+                        cin.getline(data, 10000);
+
+                        int dataSize = 0; // длина введенной строки
+                        while (data[dataSize] != '\0') {
+                            dataSize++;
+                        }
+
+                        if (dataSize > count) {
+                            cout << "Sliskom dlinnaya stroka!" << endl;
+                            continue;
+                        }
+                        if (dataSize < count) {
+                            cout << "Preduprezhdenie - vvedeno menshe simvolow, chem mozno" << endl;
+                            continue;
+                        }
+
+
+
+                        int q = 0;
                         if (offsetCount <= f->fileSize) {
                             for (int i = offset; i < offsetCount; i++) {
-                                cin >> f->data[i];
+                                f->data[i] = data[q];
+                                q++;
                             }
                         }
                         else {
@@ -251,18 +275,22 @@ int main()
                             }
 
                             f->fileSize = offsetCount;
-                            f->data = new char[offsetCount];
+                            f->data = new char[offsetCount + 1];
                             for (int i = 0; i < offsetCount; i++) {
                                 if (i >= offset) {
-                                    cin >> f->data[i];
+
+                                    f->data[i] = data[q];
+                                    q++;
+
                                 }
                                 else {
                                     f->data[i] = oldData[i];
                                 }
-                                
+
                             }
+                            f->data[offsetCount + 1] = '\0';
                         }
-                        
+
                     }
                     else {
                         cout << "Nevernie dannye!" << endl;
@@ -274,8 +302,10 @@ int main()
                     continue;
                 }
             }
-
         }
+
+
+
     } else {
          cout << endl << "Something went wrong!" << endl;
     }

@@ -266,6 +266,7 @@ void FileSystem::filesList()
         cout << "    " << temp->file->fileName << endl;
         cout << "        ";
         for (int i = 0; i < temp->file->fileSize; i++) {
+            if (temp->file->data[i-1] == '\0') { break; }
             cout << temp->file->data[i];
         }
         cout << endl;
